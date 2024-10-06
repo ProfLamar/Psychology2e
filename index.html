@@ -3,17 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychology 101 Text Game</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to CSS -->
+    <title>Psychology 101 Quiz</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to CSS for styling -->
 </head>
 <body>
     <div class="game-container">
-        <h1>Psychology 101: Life Experience Game</h1>
-        <p id="story-text">You wake up in the morning. What do you do?</p>
-        <button id="option1">Hit snooze</button>
-        <button id="option2">Get up</button>
+        <h1>Psychology 101 Quiz Game</h1>
+        <p id="question-text">Welcome to the quiz! Press start to begin.</p>
+
+        <div id="choices">
+            <button id="choice1" style="display:none"></button>
+            <button id="choice2" style="display:none"></button>
+            <button id="choice3" style="display:none"></button>
+            <button id="choice4" style="display:none"></button>
+        </div>
+
+        <button id="start-btn">Start Quiz</button>
+        <p id="score-text">Score: 0</p> <!-- Display score -->
     </div>
 
-    <script src="script.js"></script> <!-- Link to JavaScript -->
+    <script src="script.js"></script> <!-- Link to JavaScript logic -->
 </body>
 </html>
+
