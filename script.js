@@ -1,107 +1,101 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const questionText = document.getElementById('question-text');
+    const storyText = document.getElementById('story-text');
     const startBtn = document.getElementById('start-btn');
     const choiceButtons = Array.from(document.querySelectorAll('#choices button'));
-    const scoreText = document.getElementById('score-text');
-    const feedbackText = document.getElementById('feedback-text'); // Feedback area for displaying the result
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let totalTries = 0;
+    const feedbackText = document.getElementById('feedback-text');
+    let currentScene = 0;
 
-    // Expanded questions array with explanations
-    const questions = [
+    // Scenes array, representing different story points in the game
+    const scenes = [
         {
-            question: "What is the absolute threshold?",
+            text: "You wake up in the morning feeling groggy. What do you do?",
             choices: [
-                "The minimum stimulus needed to detect something 50% of the time",
-                "The smallest detectable difference between two stimuli",
-                "The process by which sensory receptors receive input",
-                "The process of interpreting sensory information"
-            ],
-            correctAnswer: 0,
-            explanation: "The absolute threshold is the minimum level of stimulus energy needed for a person to detect it 50% of the time."
+                { text: "Hit snooze", nextScene: 1 },
+                { text: "Get out of bed", nextScene: 2 }
+            ]
         },
         {
-            question: "Which part of the eye is responsible for color vision?",
+            text: "You hit snooze and fall back asleep. You start to dream vividly. Why do you dream during this part of sleep?",
+            feedback: "This happens during REM sleep, which is associated with vivid dreaming.",
             choices: [
-                "Rods",
-                "Cones",
-                "Lens",
-                "Cornea"
-            ],
-            correctAnswer: 1,
-            explanation: "Cones are photoreceptors in the retina responsible for color vision and visual sharpness, especially in bright light."
+                { text: "Wake up again", nextScene: 2 }
+            ]
         },
         {
-            question: "What does REM stand for in REM sleep?",
+            text: "You get out of bed and feel groggy. On your way to the bathroom, you stumble. What sensory process is this?",
+            feedback: "Sensation refers to detecting stimuli (like light or obstacles), while perception is how you interpret those sensations.",
             choices: [
-                "Rapid Energy Movement",
-                "Rest Every Minute",
-                "Rapid Eye Movement",
-                "Relaxed Eye Motion"
-            ],
-            correctAnswer: 2,
-            explanation: "REM stands for Rapid Eye Movement, a stage of sleep where vivid dreaming occurs."
+                { text: "Sensation", nextScene: 3 },
+                { text: "Perception", nextScene: 3 }
+            ]
+        },
+        {
+            text: "You reach the kitchen and smell coffee brewing. How do you recognize the smell?",
+            feedback: "Your sense of smell (olfaction) detects airborne molecules, which are interpreted in your brain based on prior experiences.",
+            choices: [
+                { text: "Drink coffee", nextScene: 4 },
+                { text: "Skip coffee", nextScene: 5 }
+            ]
+        },
+        {
+            text: "You drink coffee and feel more awake. You remember that this feeling is caused by caffeine, a stimulant. What does a stimulant do?",
+            feedback: "Stimulants increase activity in the brain and central nervous system, making you feel more alert and energetic.",
+            choices: [
+                { text: "Go for a walk", nextScene: 5 }
+            ]
+        },
+        {
+            text: "You decide to skip coffee and go for a walk outside. You hear birds chirping and notice flowers blooming. What kind of learning helps you recognize these sounds?",
+            feedback: "Classical conditioning helps you associate certain sounds or sights with prior experiences, like recognizing birds chirping or flowers blooming.",
+            choices: [
+                { text: "End the adventure", nextScene: null }
+            ]
         }
-        // You can add more questions here...
     ];
 
-    // Start the quiz
-    startBtn.addEventListener('click', startQuiz);
+    // Start the game
+    startBtn.addEventListener('click', startGame);
 
-    function startQuiz() {
+    function startGame() {
         startBtn.style.display = 'none'; // Hide the start button
-        currentQuestionIndex = 0;
-        score = 0;
-        totalTries = 0; // Reset total tries at the start
-        scoreText.innerText = `Score: ${score} out of ${totalTries}`;
-        feedbackText.style.display = 'none'; // Hide feedback text initially
-        displayQuestion();
+        feedbackText.style.display = 'none'; // Hide feedback at the start
+        currentScene = 0;
+        displayScene();
     }
 
-    // Display the current question
-    function displayQuestion() {
-        if (currentQuestionIndex < questions.length) {
-            const currentQuestion = questions[currentQuestionIndex];
-            questionText.innerText = currentQuestion.question;
+    // Display the current scene
+    function displayScene() {
+        const scene = scenes[currentScene];
 
-            choiceButtons.forEach((button, index) => {
-                button.style.display = 'block'; // Show buttons
-                button.innerText = currentQuestion.choices[index];
-                button.onclick = () => checkAnswer(index);
-            });
-        } else {
-            endQuiz();
-        }
-    }
-
-    // Check if the chosen answer is correct and give feedback
-    function checkAnswer(selectedIndex) {
-        const currentQuestion = questions[currentQuestionIndex];
-        totalTries++; // Increment total tries after each question
-
-        // Display feedback based on the player's answer
-        if (selectedIndex === currentQuestion.correctAnswer) {
-            score++; // Increment score if the answer is correct
-            feedbackText.innerText = `Correct! ${currentQuestion.explanation}`;
-            feedbackText.style.color = 'green'; // Set feedback text to green for correct answer
-        } else {
-            feedbackText.innerText = `Incorrect. ${currentQuestion.explanation}`;
-            feedbackText.style.color = 'red'; // Set feedback text to red for incorrect answer
+        if (!scene) {
+            storyText.innerText = "Your adventure is complete!";
+            choiceButtons.forEach(button => button.style.display = 'none');
+            return;
         }
 
-        feedbackText.style.display = 'block'; // Show the feedback text
-        currentQuestionIndex++;
-        scoreText.innerText = `Score: ${score} out of ${totalTries}`; // Update score display
-        displayQuestion();
+        storyText.innerText = scene.text;
+
+        choiceButtons.forEach((button, index) => {
+            if (scene.choices[index]) {
+                button.style.display = 'block';
+                button.innerText = scene.choices[index].text;
+                button.onclick = () => chooseOption(scene.choices[index]);
+            } else {
+                button.style.display = 'none';
+            }
+        });
     }
 
-    // End the quiz
-    function endQuiz() {
-        questionText.innerText = `Quiz Over! Your final score is ${score} out of ${totalTries}.`;
-        choiceButtons.forEach(button => button.style.display = 'none'); // Hide buttons
-        feedbackText.style.display = 'none'; // Hide feedback text at the end
-        startBtn.style.display = 'block'; // Show the start button for restarting
-        startBtn.innerText = "Restart Quiz";
+    // Choose an option and progress to the next scene
+    function chooseOption(choice) {
+        if (scenes[currentScene].feedback) {
+            feedbackText.innerText = scenes[currentScene].feedback;
+            feedbackText.style.display = 'block';
+        } else {
+            feedbackText.style.display = 'none';
+        }
+
+        currentScene = choice.nextScene;
+        setTimeout(displayScene, 2000); // Short delay before moving to the next scene
     }
 });
