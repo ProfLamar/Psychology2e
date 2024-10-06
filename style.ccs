@@ -1,4 +1,4 @@
-/* Make the entire game container centered both vertically and horizontally */
+/* Center the game container and style the body */
 html, body {
     height: 100%;
     margin: 0;
@@ -9,40 +9,40 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     display: flex;
-    justify-content: center;  /* Horizontally center the game */
-    align-items: center;      /* Vertically center the game */
-    text-align: center;       /* Center text inside the container */
+    justify-content: center;  /* Center the game horizontally */
+    align-items: center;      /* Center the game vertically */
+    text-align: center;
 }
 
 .game-container {
     background-color: #fff;
     border: 1px solid #ddd;
-    padding: 40px;              /* Add more padding to make the container larger */
-    max-width: 600px;           /* Set a maximum width for the game container */
-    width: 100%;                /* Ensure the container fits on mobile screens */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow to make it stand out */
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;                /* Ensure it fits mobile devices */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add a light shadow */
 }
 
 h1 {
-    font-size: 36px;   /* Make the heading larger */
+    font-size: 36px; /* Larger heading size */
     color: #333;
 }
 
 #question-text {
-    font-size: 24px;   /* Increase the question text size */
+    font-size: 24px; /* Make the question text larger */
     margin-bottom: 20px;
 }
 
 button {
     display: block;
     margin: 10px auto;
-    padding: 15px 30px;  /* Increase button size */
+    padding: 15px 30px; /* Increase padding for larger buttons */
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px;    /* Make the button text larger */
+    font-size: 18px; /* Larger button text */
 }
 
 button:hover {
@@ -50,6 +50,10 @@ button:hover {
 }
 
 #score-text {
-    font-size: 24px;    /* Increase the score text size */
+    font-size: 24px; /* Make the score text larger */
     margin-top: 20px;
+}
+
+#start-btn {
+    font-size: 18px;
 }
