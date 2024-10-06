@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreText = document.getElementById('score-text');
     let currentQuestionIndex = 0;
     let score = 0;
-    let totalTries = 0; // New variable to track total questions answered
+    let totalTries = 0; // Track total questions answered
 
-    // Questions array (same as before)
+    // Questions array, now including explanations
     const questions = [
         {
             question: "What is the absolute threshold?",
@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 "The process by which sensory receptors receive input",
                 "The process of interpreting sensory information"
             ],
-            correctAnswer: 0
+            correctAnswer: 0,
+            explanation: "The absolute threshold is the minimum level of stimulus energy needed for a person to detect it 50% of the time."
         },
         {
             question: "Which part of the eye is responsible for color vision?",
@@ -27,7 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 "Lens",
                 "Cornea"
             ],
-            correctAnswer: 1
+            correctAnswer: 1,
+            explanation: "Cones are photoreceptors in the retina responsible for color vision and visual sharpness, especially in bright light."
         },
         {
             question: "What does REM stand for in REM sleep?",
@@ -37,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 "Rapid Eye Movement",
                 "Relaxed Eye Motion"
             ],
-            correctAnswer: 2
+            correctAnswer: 2,
+            explanation: "REM stands for Rapid Eye Movement. This is the stage of sleep where vivid dreaming often occurs."
         },
         {
             question: "Which sense is primarily responsible for detecting airborne molecules?",
@@ -47,7 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 "Smell",
                 "Taste"
             ],
-            correctAnswer: 2
+            correctAnswer: 2,
+            explanation: "Smell (olfaction) is the sense that detects airborne molecules using receptors in the nasal cavity."
         },
         {
             question: "What is the difference threshold?",
@@ -57,9 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 "The minimum time needed to react to a stimulus",
                 "The point at which all sensory input becomes indistinguishable"
             ],
-            correctAnswer: 1
-        },
-        // You can add more questions here...
+            correctAnswer: 1,
+            explanation: "The difference threshold (also called the just noticeable difference) is the smallest difference in stimuli that a person can detect."
+        }
+        // Add more questions with explanations as needed...
     ];
 
     // Start the quiz
@@ -69,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startBtn.style.display = 'none'; // Hide the start button
         currentQuestionIndex = 0;
         score = 0;
-        totalTries = 0; // Reset total tries to 0 at the start
+        totalTries = 0; // Reset total tries at the start
         scoreText.innerText = `Score: ${score} out of ${totalTries}`;
         displayQuestion();
     }
@@ -90,16 +95,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Check if the chosen answer is correct
+    // Check if the chosen answer is correct and give feedback
     function checkAnswer(selectedIndex) {
         const currentQuestion = questions[currentQuestionIndex];
         totalTries++; // Increment total tries after each question
 
         if (selectedIndex === currentQuestion.correctAnswer) {
             score++; // Increment score if the answer is correct
-            alert("Correct!");
+            alert(`Correct! ${currentQuestion.explanation}`); // Correct answer feedback
         } else {
-            alert("Incorrect.");
+            alert(`Incorrect. ${currentQuestion.explanation}`); // Incorrect answer feedback
         }
 
         currentQuestionIndex++;
@@ -115,4 +120,3 @@ document.addEventListener('DOMContentLoaded', () => {
         startBtn.innerText = "Restart Quiz";
     }
 });
-
