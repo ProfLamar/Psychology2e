@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psychology 101 Quiz</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to CSS for styling -->
+    <link rel="stylesheet" href="style.css"> <!-- Link to CSS -->
 </head>
 <body>
     <div class="game-container">
@@ -19,10 +19,12 @@
         </div>
 
         <button id="start-btn">Start Quiz</button>
-        <p id="score-text">Score: 0</p> <!-- Display score -->
+
+        <p id="feedback-text" style="display:none; font-weight: bold;"></p> <!-- Feedback area -->
+
+        <p id="score-text">Score: 0</p> <!-- Dynamic score display -->
     </div>
 
-    <script src="script.js"></script> <!-- Link to JavaScript logic -->
+    <script src="script.js"></script> <!-- Link to JavaScript -->
 </body>
 </html>
-
