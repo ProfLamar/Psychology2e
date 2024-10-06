@@ -18,9 +18,11 @@ body {
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 40px;
-    max-width: 600px;
-    width: 100%;                /* Ensure it fits mobile devices */
+    max-width: 600px;          /* Limit max width on large screens */
+    width: 90%;                /* Flexibly adjust to smaller screens */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add a light shadow */
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -36,13 +38,13 @@ h1 {
 button {
     display: block;
     margin: 10px auto;
-    padding: 15px 30px; /* Increase padding for larger buttons */
+    padding: 20px 40px; /* Increase padding for better touch targets */
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px; /* Larger button text */
+    font-size: 20px; /* Larger button text for better readability */
 }
 
 button:hover {
